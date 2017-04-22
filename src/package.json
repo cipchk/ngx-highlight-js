@@ -1,0 +1,8 @@
+{
+  "name": "ngx-highlight-js",
+  "dependencies": {
+  },
+  "peerDependencies": {
+    "@angular/core": "*"
+  }
+}
