@@ -17,6 +17,18 @@ Angular for syntax highlighting with highlight.js
 npm install --save ngx-highlight-js
 ```
 
+Import the `HighlightJsModule` in to your root `AppModule`.
+
+```typescript
+import { HighlightJsModule } from 'ngx-highlight-js';
+@NgModule({
+  imports: [ HighlightJsModule ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+```
+
 ### 2、Add highlight.js
 
 Load the highlight.js and theme css in page.
