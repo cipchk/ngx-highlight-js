@@ -38,7 +38,7 @@ Load the highlight.js and theme css in page.
 ```
 
 ```html
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/monokai_sublime.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/atom-one-dark.min.css">
 ```
 
 ## Only `<textarea>` Tag
