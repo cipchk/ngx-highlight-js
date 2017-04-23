@@ -1,6 +1,7 @@
-import { Directive, Component, ElementRef, Input, OnInit, OnDestroy, AfterViewChecked } from "@angular/core";
-declare var hljs: any;
-declare var document: any;
+import { Directive, Component, ElementRef, Input, OnInit, OnDestroy } from "@angular/core";
+
+declare const hljs: any;
+declare const document: any;
 
 @Directive({
     selector: '[highlight-js]',
@@ -8,7 +9,7 @@ declare var document: any;
         'style': 'display:none;'
     }
 })
-export class HighlightJsDirective implements OnInit, OnDestroy, AfterViewChecked {
+export class HighlightJsDirective implements OnInit, OnDestroy {
 
     @Input() options: any;
     @Input() lang: string;
@@ -29,9 +30,6 @@ export class HighlightJsDirective implements OnInit, OnDestroy, AfterViewChecked
         this.parentEl.insertBefore(this.codeEl, this.elementRef.nativeElement.nextSibling);
 
         hljs.configure(Object.assign({ }, this.options));
-    }
-
-    ngAfterViewChecked() {
         hljs.highlightBlock(this.codeEl);
     }
     
