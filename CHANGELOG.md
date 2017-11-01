@@ -1,0 +1,3 @@
+# 1.0.2
+
++ 修复 UNMET PEER DEPENDENCY
