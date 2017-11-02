@@ -1,2 +1,11 @@
+import { NgModule } from '@angular/core';
+import { HighlightJsDirective } from './components/highlight-js.directive';
+
 export { HighlightJsDirective } from './components/highlight-js.directive';
-export { HighlightJsModule } from './components/highlight-js.module';
+
+@NgModule({
+  declarations: [HighlightJsDirective],
+  exports: [HighlightJsDirective]
+})
+export class HighlightJsModule {
+}
