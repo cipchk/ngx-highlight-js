@@ -20,6 +20,6 @@
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "index.js",
-    "flatModuleId": "ngx-notify"
+    "flatModuleId": "ngx-highlight-js"
   }
 }

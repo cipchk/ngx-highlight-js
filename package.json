@@ -1,6 +1,6 @@
 {
   "name": "ngx-highlight-js",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "main": "./bundles/highlightjs.umd.js",
   "module": "./esm5/highlightjs.js",
   "es2015": "./esm2015/highlightjs.js",

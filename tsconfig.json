@@ -12,8 +12,8 @@
     "lib": ["es2017", "dom"],
     "baseUrl": "./",
     "paths": {
-      "ngx-notify": ["./lib/ngx-notify.module"],
-      "ngx-notify/*": ["./lib/*"]
+      "ngx-highlight-js": ["./lib/ngx-highlight-js.module"],
+      "ngx-highlight-js/*": ["./lib/*"]
     }
   }
 }

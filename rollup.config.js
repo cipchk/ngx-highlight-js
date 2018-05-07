@@ -17,18 +17,7 @@ let globals = {
   "@angular/platform-browser/animations": "ng.platformBrowser.animations",
   "@angular/core/testing": "ng.core.testing",
   "@angular/common/testing": "ng.common.testing",
-  "@angular/common/http/testing": "ng.common.http.testing",
-
-  "rxjs/BehaviorSubject": "Rx",
-  "rxjs/Observable": "Rx",
-  "rxjs/Subject": "Rx",
-  "rxjs/Subscription": "Rx",
-  "rxjs/operators": "Rx.Observable.prototype",
-  "rxjs/observable/of": "Rx.Observable",
-  "rxjs/observable/zip": "Rx.Observable",
-  "rxjs/observable/fromEvent": "Rx.Observable",
-  "rxjs/observable/FromEventObservable": "Rx.Observable",
-  "rxjs/observable/combineLatest": "Rx.Observable"
+  "@angular/common/http/testing": "ng.common.http.testing"
 };
 
 let plugins = [sourcemaps(), resolve()];
@@ -47,7 +36,7 @@ switch (target) {
 
 export default {
   exports: "named",
-  name: "ngxNotify",
+  name: "ngxHighlightJS",
   plugins,
   external: Object.keys(globals),
   globals,
