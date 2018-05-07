@@ -7,7 +7,8 @@ Angular for syntax highlighting with highlight.js
 
 ## Demo
 
-[Live Demo](https://cipchk.github.io/ngx-highlight-js/)
+- [Live Demo](https://cipchk.github.io/ngx-highlight-js/)
+- [Stackblitz](https://stackblitz.com/edit/ngx-highlight-js)
 
 ## Installation instructions
 

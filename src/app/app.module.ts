@@ -15,16 +15,11 @@ import { DemoComponent } from './components/demo.component';
     FormsModule,
     HttpModule,
     CommonModule,
-    
-    HighlightJsModule
-  ],
-  declarations: [
-    AppComponent,
-    DemoComponent
-  ],
-  providers: [  ],
-  bootstrap: [AppComponent]
-})
 
-export class AppDemoModule {
-}
+    HighlightJsModule,
+  ],
+  declarations: [AppComponent, DemoComponent],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppDemoModule {}
