@@ -1,12 +1,12 @@
 <div class="row mb-5">
-    <div class="col-sm-12">
-        <h5 class="mt-3 mb-3">Installation instructions</h5>
-        <h6 class="mb-2">1、Install</h6>
-        <textarea highlight-js [lang]="'bash'">npm install --save ngx-highlight-js</textarea>
-    </div>
-    <div class="col-sm-12">
-        <h6 class="mb-2">2、Import the `HighlightJsModule` in to your root `AppModule`.</h6>
-        <textarea highlight-js>
+  <div class="col-sm-12">
+    <h5 class="mt-3 mb-3">Installation instructions</h5>
+    <h6 class="mb-2">1、Install</h6>
+    <textarea highlight-js [lang]="'bash'">npm install --save ngx-highlight-js</textarea>
+  </div>
+  <div class="col-sm-12">
+    <h6 class="mb-2">2、Import the `HighlightJsModule` in to your root `AppModule`.</h6>
+    <textarea highlight-js>
 import { HighlightJsModule } from 'ngx-highlight-js';
 @NgModule({
   imports: [ HighlightJsModule ],
@@ -15,22 +15,22 @@ import { HighlightJsModule } from 'ngx-highlight-js';
 export class AppModule {
 }
         </textarea>
-    </div>
-    <div class="col-sm-12">
-        <h6 class="mb-2">3、Add highlight.js</h6>
-        <p>Load the highlight.js and theme css in page.</p>
-        <textarea highlight-js>
+  </div>
+  <div class="col-sm-12">
+    <h6 class="mb-2">3、Add highlight.js</h6>
+    <p>Load the highlight.js and theme css in page.</p>
+    <textarea highlight-js>
             <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
         </textarea>
-        <textarea highlight-js>
+    <textarea highlight-js>
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/atom-one-dark.min.css">
         </textarea>
-    </div>
-    <div class="col-sm-12">
-        <h5 class="mt-5 mb-3">Only `&lt;textarea>` Tag</h5>
-        <div class="row">
-            <div class="col-sm-6">
-                <textarea highlight-js [lang]="'html'" *ngIf="switchStatus">
+  </div>
+  <div class="col-sm-12">
+    <h5 class="mt-5 mb-3">Only `&lt;textarea>` Tag</h5>
+    <div class="row">
+      <div class="col-sm-6">
+        <textarea highlight-js [lang]="'html'" *ngIf="switchStatus">
 &lt;textarea highlight-js [options]="{}" [lang]="'typescript'">
 /* tslint:disable */
 import { Component } from '@angular/core';
@@ -45,13 +45,25 @@ export class DemoComponent {
 }
 &lt;/textarea>
                 </textarea>
-                <button class="btn btn-primary btn-sm mb-3" (click)="switchStatus=!switchStatus">{{ switchStatus ? 'Hide' : 'Show'}}</button>
-            </div>
-            <div class="col-sm-6">
-                <p><strong>[options]</strong> equar <a href="http://highlightjs.readthedocs.io/en/latest/api.html#configure-options" target="_blank">configure(options)</a>. (optional)</p>
-                <p><strong>[lang]</strong> uses language detection by default but you can specify the language. (optional)</p>
-            </div>
-        </div>
-        <p class="mt-5 mb-5"><strong>no more</strong></p>
+        <button class="btn btn-primary btn-sm mb-3" (click)="switchStatus=!switchStatus">{{ switchStatus ? 'Hide' : 'Show'}}</button>
+      </div>
+      <div class="col-sm-6">
+        <p>
+          <strong>[options]</strong> equar
+          <a href="http://highlightjs.readthedocs.io/en/latest/api.html#configure-options" target="_blank">configure(options)</a>. (optional)</p>
+        <p>
+          <strong>[lang]</strong> uses language detection by default but you can specify the language. (optional)</p>
+      </div>
     </div>
+    <h5 class="mt-5 mb-3">Support `ngModel`</h5>
+    <div class="row">
+      <div class="col-sm-6">
+        <textarea highlight-js [lang]="'html'" [ngModel]="html"></textarea>
+        <button class="btn btn-primary btn-sm mb-3" (click)="updateHTML()">Update</button>
+      </div>
+    </div>
+    <p class="mt-5 mb-5">
+      <strong>no more</strong>
+    </p>
+  </div>
 </div>
