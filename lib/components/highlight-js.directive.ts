@@ -20,10 +20,14 @@ declare const hljs: any;
   },
 })
 export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
-  @Input() options: any;
-  @Input() lang: string;
-  @Input() code: string;
-  @ContentChild(NgModel) private readonly ngModel: NgModel;
+  @Input()
+  options: any;
+  @Input()
+  lang: string;
+  @Input()
+  code: string;
+  @ContentChild(NgModel)
+  private readonly ngModel: NgModel;
 
   protected codeEl: any;
   protected parentEl: any;
@@ -59,10 +63,7 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  constructor(
-    private el: ElementRef,
-    @Inject(DOCUMENT) private doc: any,
-  ) {}
+  constructor(private el: ElementRef, @Inject(DOCUMENT) private doc: any) {}
 
   ngOnInit() {
     this.init();
@@ -74,10 +75,33 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
         this.code = this.escapeHTML(res);
         this.init();
       });
+    } else {
+      this.initMutation();
     }
   }
 
   ngOnDestroy(): void {
     this.destroy();
+    this.destroyMutation();
   }
+
+  // #region Mutation
+
+  private observer: MutationObserver;
+  private initMutation() {
+    if (typeof MutationObserver === 'undefined') return;
+    this.observer = new MutationObserver(this.init.bind(this));
+    this.observer.observe(this.el.nativeElement, {
+      characterData: true,
+      childList: true,
+      subtree: true,
+    });
+  }
+
+  private destroyMutation() {
+    if (!this.observer) return;
+    this.observer.disconnect();
+  }
+
+  // #endregionn
 }

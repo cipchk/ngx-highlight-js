@@ -62,6 +62,15 @@ export class DemoComponent {
         <button class="btn btn-primary btn-sm mb-3" (click)="updateHTML()">Update</button>
       </div>
     </div>
+    <h5 class="mt-5 mb-3">Observe Content</h5>
+    <div class="row">
+      <div class="col-sm-6">
+        <textarea highlight-js [lang]="'html'">
+          {{ random }}
+        </textarea>
+        <button class="btn btn-primary btn-sm mb-3" (click)="randomHtml()">Random Html</button>
+      </div>
+    </div>
     <p class="mt-5 mb-5">
       <strong>no more</strong>
     </p>
