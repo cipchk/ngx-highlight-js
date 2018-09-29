@@ -1,2 +1,2 @@
-export { HighlightJsDirective } from './components/highlight-js.directive';
-export * from './ngx-highlight-js.module';
+export { HighlightJsDirective } from './src/highlight-js.directive';
+export * from './src/highlight-js.module';
