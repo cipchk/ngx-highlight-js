@@ -11,18 +11,22 @@ export class DemoComponent {
   html = `<textarea highlight-js [lang]="'html'" [ngModel]="html"></textarea>`;
   random = ``;
 
+  private getHtml(): string {
+    const DATA = [
+      `<a href="">1</a>`,
+      `<div>2</div>`,
+      `<span>3</span>`,
+      `<i>4</i>`,
+      `<p>5</p>`,
+    ];
+    return DATA[r(0, DATA.length - 1)];
+  }
+
   updateHTML() {
-    this.html = `<span></span>`;
+    this.html = this.getHtml();
   }
 
   randomHtml() {
-    const DATA = [
-      `<a href="">1</a>`,
-      `<div>1</div>`,
-      `<span>1</span>`,
-      `<i>1</i>`,
-      `<p>1</p>`,
-    ];
-    this.random = DATA[r(0, DATA.length - 1)];
+    this.random = this.getHtml();
   }
 }
