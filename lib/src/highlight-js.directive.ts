@@ -4,12 +4,13 @@ import {
   Input,
   OnInit,
   OnDestroy,
-  ContentChild,
   AfterViewInit,
   Inject,
+  Optional,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NgModel } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 declare const hljs: any;
 
@@ -18,19 +19,22 @@ declare const hljs: any;
   host: {
     style: 'display:none;',
   },
+  exportAs: 'highlightJs',
 })
 export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
-  @Input()
-  options: any;
-  @Input()
-  lang: string;
-  @Input()
-  code: string;
-  @ContentChild(NgModel)
-  private readonly ngModel: NgModel;
+  @Input() options: any;
+  @Input() lang = 'html';
+  @Input() code: string;
 
-  protected codeEl: any;
-  protected parentEl: any;
+  protected codeEl: HTMLElement;
+  protected parentEl: HTMLElement;
+  private modelValue$: Subscription;
+
+  constructor(
+    private el: ElementRef<HTMLElement>,
+    @Optional() private ngModel: NgModel,
+    @Inject(DOCUMENT) private doc: any,
+  ) {}
 
   private escapeHTML(str: string): string {
     return (str || '')
@@ -49,7 +53,7 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
     }
     this.codeEl.innerHTML =
       this.code || '' + this.el.nativeElement.innerHTML.trim();
-    this.parentEl = this.el.nativeElement.parentNode;
+    this.parentEl = this.el.nativeElement.parentNode as HTMLElement;
     this.parentEl.insertBefore(this.codeEl, this.el.nativeElement.nextSibling);
 
     hljs.configure(Object.assign({}, this.options));
@@ -63,15 +67,13 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  constructor(private el: ElementRef, @Inject(DOCUMENT) private doc: any) {}
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.init();
   }
 
   ngAfterViewInit(): void {
     if (this.ngModel) {
-      this.ngModel.valueChanges.subscribe(res => {
+      this.modelValue$ = this.ngModel.valueChanges.subscribe(res => {
         this.code = this.escapeHTML(res);
         this.init();
       });
@@ -83,6 +85,9 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy();
     this.destroyMutation();
+    if (this.modelValue$) {
+      this.modelValue$.unsubscribe();
+    }
   }
 
   // #region Mutation
