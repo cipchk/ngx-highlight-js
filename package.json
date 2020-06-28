@@ -13,12 +13,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cipchk/ngx-countdown"
+    "url": "https://github.com/cipchk/ngx-highlight-js"
   },
   "bugs": {
-    "url": "https://github.com/cipchk/ngx-countdown/issues"
+    "url": "https://github.com/cipchk/ngx-highlight-js/issues"
   },
-  "homepage": "https://cipchk.github.io/ngx-countdown/",
+  "homepage": "https://cipchk.github.io/ngx-highlight-js/",
   "scripts": {
     "analyze": "ng build --prod --stats-json",
     "lint": "tslint -p tsconfig.json -c tslint.json 'lib/*/*.ts'",
