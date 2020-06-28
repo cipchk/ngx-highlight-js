@@ -5,7 +5,6 @@ import { HighlightJsDirective } from './highlight-js.directive';
 @NgModule({
   imports: [FormsModule],
   declarations: [HighlightJsDirective],
-  exports: [HighlightJsDirective]
+  exports: [HighlightJsDirective],
 })
-export class HighlightJsModule {
-}
+export class HighlightJsModule {}

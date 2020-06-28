@@ -6,17 +6,17 @@ import { HighlightJsModule } from '../src/highlight-js.module';
 const html = ``;
 
 describe('Component: ngx-highlight-js', () => {
-  let fixture:ComponentFixture<any>;
-  let context:TestNGComponent;
-  let element:any;
-  let clean:any;
+  let fixture: ComponentFixture<any>;
+  let context: TestNGComponent;
+  let element: any;
+  let clean: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [TestNGComponent],
-      imports: [HighlightJsModule]
+      imports: [HighlightJsModule],
     });
-    TestBed.overrideComponent(TestNGComponent, {set: {template: html}});
+    TestBed.overrideComponent(TestNGComponent, { set: { template: html } });
     fixture = TestBed.createComponent(TestNGComponent);
     context = fixture.componentInstance;
     element = fixture.nativeElement.querySelector('#c1');
@@ -31,7 +31,6 @@ describe('Component: ngx-highlight-js', () => {
 
 @Component({
   selector: 'ngx-highlight-js-test',
-  template: ''
+  template: '',
 })
-class TestNGComponent {
-}
+class TestNGComponent {}

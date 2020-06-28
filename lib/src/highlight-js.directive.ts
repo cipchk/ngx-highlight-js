@@ -22,6 +22,11 @@ declare const hljs: any;
   exportAs: 'highlightJs',
 })
 export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
+  constructor(
+    private el: ElementRef<HTMLElement>,
+    @Optional() private ngModel: NgModel,
+    @Inject(DOCUMENT) private doc: any,
+  ) {}
   @Input() options: any;
   @Input() lang = 'html';
   @Input() code: string;
@@ -30,11 +35,9 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
   protected parentEl: HTMLElement;
   private modelValue$: Subscription;
 
-  constructor(
-    private el: ElementRef<HTMLElement>,
-    @Optional() private ngModel: NgModel,
-    @Inject(DOCUMENT) private doc: any,
-  ) {}
+  // #region Mutation
+
+  private observer: MutationObserver;
 
   private escapeHTML(str: string): string {
     return (str || '')
@@ -45,7 +48,7 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
       .replace(/'/g, '&apos;');
   }
 
-  private init() {
+  private init(): void {
     this.destroy();
     this.codeEl = this.doc.createElement('pre');
     if (this.lang) {
@@ -56,11 +59,11 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
     this.parentEl = this.el.nativeElement.parentNode as HTMLElement;
     this.parentEl.insertBefore(this.codeEl, this.el.nativeElement.nextSibling);
 
-    hljs.configure(Object.assign({}, this.options));
+    hljs.configure({ ...this.options });
     hljs.highlightBlock(this.codeEl);
   }
 
-  private destroy() {
+  private destroy(): void {
     if (this.codeEl) {
       this.parentEl.removeChild(this.codeEl);
       this.codeEl = null;
@@ -73,7 +76,7 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (this.ngModel) {
-      this.modelValue$ = this.ngModel.valueChanges.subscribe(res => {
+      this.modelValue$ = this.ngModel.valueChanges.subscribe((res) => {
         this.code = this.escapeHTML(res);
         this.init();
       });
@@ -90,11 +93,10 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // #region Mutation
-
-  private observer: MutationObserver;
-  private initMutation() {
-    if (typeof MutationObserver === 'undefined') return;
+  private initMutation(): void {
+    if (typeof MutationObserver === 'undefined') {
+      return;
+    }
     this.observer = new MutationObserver(this.init.bind(this));
     this.observer.observe(this.el.nativeElement, {
       characterData: true,
@@ -103,8 +105,10 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  private destroyMutation() {
-    if (!this.observer) return;
+  private destroyMutation(): void {
+    if (!this.observer) {
+      return;
+    }
     this.observer.disconnect();
   }
 
