@@ -1,14 +1,13 @@
 {
   "name": "ngx-highlight-js",
-  "version": "10.0.3",
-  "description": "Simple, easy and performance countdown for angular",
+  "version": "11.0.0",
+  "description": "Angular for syntax highlighting with highlight.js",
   "keywords": [
+    "highlight",
     "ngx-highlight-js",
-    "ng-countdown",
-    "angular-countdown",
-    "angular countdown",
-    "countdown",
-    "count down"
+    "highlight.js",
+    "highlight-js",
+    "syntax highlighting"
   ],
   "author": "cipchk <cipchk@qq.com>",
   "license": "MIT",

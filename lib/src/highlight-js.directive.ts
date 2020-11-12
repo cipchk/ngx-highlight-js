@@ -17,7 +17,7 @@ declare const hljs: any;
 @Directive({
   selector: '[highlight-js]',
   host: {
-    style: 'display:none;',
+    '[style.display]': `'none'`,
   },
   exportAs: 'highlightJs',
 })
@@ -29,15 +29,15 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
   ) {}
   @Input() options: any;
   @Input() lang = 'html';
-  @Input() code: string;
+  @Input() code!: string;
 
-  protected codeEl: HTMLElement;
-  protected parentEl: HTMLElement;
-  private modelValue$: Subscription;
+  protected codeEl?: HTMLElement;
+  protected parentEl!: HTMLElement;
+  private modelValue$?: Subscription;
 
   // #region Mutation
 
-  private observer: MutationObserver;
+  private observer!: MutationObserver;
 
   private escapeHTML(str: string): string {
     return (str || '')
@@ -50,7 +50,7 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
 
   private init(): void {
     this.destroy();
-    this.codeEl = this.doc.createElement('pre');
+    this.codeEl = this.doc.createElement('pre') as HTMLElement;
     if (this.lang) {
       this.codeEl.className = this.lang;
     }
@@ -66,7 +66,7 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
   private destroy(): void {
     if (this.codeEl) {
       this.parentEl.removeChild(this.codeEl);
-      this.codeEl = null;
+      this.codeEl = undefined;
     }
   }
 
@@ -76,7 +76,7 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (this.ngModel) {
-      this.modelValue$ = this.ngModel.valueChanges.subscribe((res) => {
+      this.modelValue$ = this.ngModel.valueChanges?.subscribe((res) => {
         this.code = this.escapeHTML(res);
         this.init();
       });
