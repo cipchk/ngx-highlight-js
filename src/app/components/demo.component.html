@@ -2,14 +2,10 @@
   <div class="col-sm-12">
     <h5 class="mt-3 mb-3">Installation instructions</h5>
     <h6 class="mb-2">1、Install</h6>
-    <textarea highlight-js [lang]="'bash'">
-npm install --save ngx-highlight-js</textarea
-    >
+    <textarea highlight-js [lang]="'bash'">npm install --save ngx-highlight-js</textarea>
   </div>
   <div class="col-sm-12">
-    <h6 class="mb-2">
-      2、Import the `HighlightJsModule` in to your root `AppModule`.
-    </h6>
+    <h6 class="mb-2">2、Import the `HighlightJsModule` in to your root `AppModule`.</h6>
     <textarea highlight-js lang="ts">
 import { HighlightJsModule } from 'ngx-highlight-js';
 @NgModule({
@@ -53,35 +49,24 @@ export class DemoComponent {
 &lt;/textarea>
                 </textarea
         >
-        <button
-          class="btn btn-primary btn-sm mb-3"
-          (click)="switchStatus = !switchStatus"
-        >
+        <button class="btn btn-primary btn-sm mb-3" (click)="switchStatus = !switchStatus">
           {{ switchStatus ? 'Hide' : 'Show' }}
         </button>
       </div>
       <div class="col-sm-6">
         <p>
           <strong>[options]</strong> equar
-          <a
-            href="http://highlightjs.readthedocs.io/en/latest/api.html#configure-options"
-            target="_blank"
-            >configure(options)</a
-          >. (optional)
+          <a href="http://highlightjs.readthedocs.io/en/latest/api.html#configure-options" target="_blank">configure(options)</a>.
+          (optional)
         </p>
-        <p>
-          <strong>[lang]</strong> uses language detection by default but you can
-          specify the language. (optional)
-        </p>
+        <p><strong>[lang]</strong> uses language detection by default but you can specify the language. (optional)</p>
       </div>
     </div>
     <h5 class="mt-5 mb-3">Support `ngModel`</h5>
     <div class="row">
       <div class="col-sm-6">
         <textarea highlight-js [lang]="'html'" [ngModel]="html"></textarea>
-        <button class="btn btn-primary btn-sm mb-3" (click)="updateHTML()">
-          Update
-        </button>
+        <button class="btn btn-primary btn-sm mb-3" (click)="updateHTML()">Update</button>
       </div>
     </div>
     <h5 class="mt-5 mb-3">Observe Content</h5>
@@ -90,9 +75,17 @@ export class DemoComponent {
         <textarea highlight-js [lang]="'html'">
           {{ random }}
         </textarea>
-        <button class="btn btn-primary btn-sm mb-3" (click)="randomHtml()">
-          Random Html
-        </button>
+        <button class="btn btn-primary btn-sm mb-3" (click)="randomHtml()">Random Html</button>
+      </div>
+    </div>
+    <h5 class="mt-5 mb-3">Default mode</h5>
+    <div class="row">
+      <div class="col-sm-6">
+        <p>Should be will render each &lt;pre>&lt;code></p>
+        <textarea highlight-js>&lt;div [innerHTML]="code" highlight-js mode="default">&lt;/div></textarea>
+        <hr />
+        <h6>Result</h6>
+        <div [innerHTML]="code" highlight-js mode="default"></div>
       </div>
     </div>
     <p class="mt-5 mb-5">

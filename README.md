@@ -2,8 +2,7 @@
 Angular for syntax highlighting with highlight.js
 
 [![NPM version](https://img.shields.io/npm/v/ngx-highlight-js.svg)](https://www.npmjs.com/package/ngx-highlight-js)
-[![Build Status](https://travis-ci.org/cipchk/ngx-highlight-js.svg?branch=master)](https://travis-ci.org/cipchk/ngx-highlight-js)
-
+[![Ci](https://github.com/cipchk/ngx-highlight-js/workflows/Ci/badge.svg)](https://github.com/cipchk/ngx-highlight-js/actions)
 
 ## Demo
 
@@ -35,14 +34,15 @@ export class AppModule {
 Load the highlight.js and theme css in page.
 
 ```html
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.0/build/highlight.min.js"></script>
 ```
 
 ```html
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.0/build/styles/atom-one-dark.min.css" />
 ```
 
-## Only `<textarea>` Tag
+## Usage
+### Simple mode
 
 ```html
 <textarea highlight-js [options]="{}" [lang]="'typescript'">
@@ -50,19 +50,65 @@ Load the highlight.js and theme css in page.
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'demo',
-    templateUrl: './demo.component.html',
-    styleUrls: ['./demo.component.scss']
+  selector: 'demo',
+  templateUrl: './demo.component.html',
+  styleUrls: ['./demo.component.scss']
 })
 export class DemoComponent {
-    switchStatus: boolean = true;
+  switchStatus: boolean = true;
 }
 </textarea>
 ```
 
-**[options]** equar [configure(options)](http://highlightjs.readthedocs.io/en/latest/api.html#configure-options). (optional)
+### Default mode
 
-**[lang]** uses language detection by default but you can specify the language. (optional)
+Will render each `<pre><code>`:
+
+```html
+<textarea highlight-js mode="default">
+  <p>
+    The bare minimum for using highlight.js on a web page is linking to the library along with one of the styles and calling
+    <a href="http://highlightjs.readthedocs.io/en/latest/api.html#inithighlightingonload"><code>initHighlightingOnLoad</code></a
+    >:
+  </p>
+  <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/path/to/styles/default.css&quot;&gt;
+  &lt;script src=&quot;/path/to/highlight.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;hljs.initHighlightingOnLoad();&lt;/script&gt;
+  </code></pre>
+  <p>
+    This will find and highlight code inside of <code>&lt;pre&gt;&lt;code&gt;</code> tags; it tries to detect the language automatically. If
+    automatic detection doesn’t work for you, you can specify the language in the <code>class</code> attribute:
+  </p>
+  <pre><code class="language-html">&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;...&lt;/code&gt;&lt;/pre&gt;
+  </code></pre>
+</textarea>
+```
+
+### Parameter
+
+| Property | Description | Type | Default | Global Config |
+|----------|-------------|------|---------|---------------|
+| `[mode]` | - `default` Will render each `<pre><code>`<br>- `simple` Render all content according to `lang` language | `default, simple` | `simple` | ✅ |
+| `[options]` | Equar [configure(options)](http://highlightjs.readthedocs.io/en/latest/api.html#configure-options) | `any` | - | ✅ |
+| `[lang]` | Uses language detection by default but you can specify the language | `string` | `html` | ✅ |
+| `[code]` | Specify content | `string` | `html` | - |
+
+**Global Config**
+
+```ts
+@NgModule({
+  providers: [
+    { 
+      provide: HIGHLIGHTJS_CONFIG, 
+      useValue: { 
+        lang: 'html'
+      } as HighlightJsConfig 
+    }
+  ],
+  imports: [ HighlightJsModule ],
+})
+export class AppDemoModule {}
+```
 
 ## Troubleshooting
 
