@@ -1,80 +1,80 @@
-import {
-  Directive,
-  ElementRef,
-  Input,
-  OnInit,
-  OnDestroy,
-  AfterViewInit,
-  Inject,
-  Optional,
-} from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, AfterViewInit, Inject, Optional } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NgModel } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { HighlightJsConfig, HIGHLIGHTJS_CONFIG } from './highlight-js.config';
 
 declare const hljs: any;
 
 @Directive({
   selector: '[highlight-js]',
   host: {
-    '[style.display]': `'none'`,
+    '[style.display]': `mode === 'simple' ? 'none' : null`,
   },
   exportAs: 'highlightJs',
 })
-export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
-  constructor(
-    private el: ElementRef<HTMLElement>,
-    @Optional() private ngModel: NgModel,
-    @Inject(DOCUMENT) private doc: any,
-  ) {}
+export class HighlightJsDirective implements AfterViewInit, OnDestroy {
   @Input() options: any;
   @Input() lang = 'html';
   @Input() code!: string;
+  @Input() mode: 'default' | 'simple' = 'simple';
 
   protected codeEl?: HTMLElement;
   protected parentEl!: HTMLElement;
   private modelValue$?: Subscription;
-
-  // #region Mutation
-
   private observer!: MutationObserver;
 
+  constructor(
+    private el: ElementRef<HTMLElement>,
+    @Optional() private ngModel: NgModel,
+    @Inject(DOCUMENT) private doc: any,
+    @Optional() @Inject(HIGHLIGHTJS_CONFIG) cog: HighlightJsConfig,
+  ) {
+    Object.assign(this, cog);
+  }
+
   private escapeHTML(str: string): string {
-    return (str || '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&apos;');
+    return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
   }
 
   private init(): void {
     this.destroy();
-    this.codeEl = this.doc.createElement('pre') as HTMLElement;
-    if (this.lang) {
-      this.codeEl.className = this.lang;
+    const el = this.el.nativeElement;
+    const code = this.code || '' + el.innerHTML.trim();
+    this.codeEl = this.doc.createElement(this.mode === 'default' ? 'div' : 'pre') as HTMLElement;
+    const isSimple = this.mode === 'simple';
+    if (isSimple) {
+      if (this.lang) {
+        this.codeEl.className = this.lang;
+      }
+      this.parentEl = el.parentNode as HTMLElement;
+      this.parentEl.insertBefore(this.codeEl, el.nextSibling);
+    } else {
+      this.parentEl = el;
+      this.parentEl.innerHTML = ``;
+      this.parentEl.appendChild(this.codeEl);
     }
-    this.codeEl.innerHTML =
-      this.code || '' + this.el.nativeElement.innerHTML.trim();
-    this.parentEl = this.el.nativeElement.parentNode as HTMLElement;
-    this.parentEl.insertBefore(this.codeEl, this.el.nativeElement.nextSibling);
-
+    this.codeEl.innerHTML = code;
     hljs.configure({ ...this.options });
-    hljs.highlightBlock(this.codeEl);
+
+    if (isSimple) {
+      hljs.highlightBlock(this.codeEl);
+    } else {
+      this.codeEl.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightBlock(block);
+      });
+    }
   }
 
   private destroy(): void {
-    if (this.codeEl) {
+    if (this.codeEl && this.parentEl) {
       this.parentEl.removeChild(this.codeEl);
       this.codeEl = undefined;
     }
   }
 
-  ngOnInit(): void {
-    this.init();
-  }
-
   ngAfterViewInit(): void {
+    this.init();
     if (this.ngModel) {
       this.modelValue$ = this.ngModel.valueChanges?.subscribe((res) => {
         this.code = this.escapeHTML(res);
@@ -111,6 +111,4 @@ export class HighlightJsDirective implements OnInit, AfterViewInit, OnDestroy {
     }
     this.observer.disconnect();
   }
-
-  // #endregionn
 }
