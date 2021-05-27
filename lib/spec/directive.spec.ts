@@ -7,30 +7,34 @@ const html = ``;
 
 describe('Component: ngx-highlight-js', () => {
   let fixture: ComponentFixture<any>;
-  let context: TestNGComponent;
-  let element: any;
-  let clean: any;
+  let context: TestComponent;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TestNGComponent],
+      declarations: [TestComponent],
       imports: [HighlightJsModule],
     });
-    TestBed.overrideComponent(TestNGComponent, { set: { template: html } });
-    fixture = TestBed.createComponent(TestNGComponent);
+    fixture = TestBed.createComponent(TestComponent);
     context = fixture.componentInstance;
-    element = fixture.nativeElement.querySelector('#c1');
-    clean = fixture.nativeElement.querySelector('#c2');
+    (window as any).hljs = {
+      configure: jasmine.createSpy(),
+      highlightBlock: jasmine.createSpy(),
+    };
     fixture.detectChanges();
   });
 
-  it('fixture should not be null', () => {
-    expect(fixture).not.toBeNull();
+  it('should be working', () => {
+    const el = (fixture.nativeElement as HTMLElement).querySelector('textarea') as HTMLTextAreaElement;
+    expect(el.style.display).toBe('none');
   });
 });
 
 @Component({
   selector: 'ngx-highlight-js-test',
-  template: '',
+  template: `
+    <textarea [highlight-js] [options]="{}" [lang]="'typescript'">
+import { Component } from '@angular/core';
+</textarea>
+  `,
 })
-class TestNGComponent {}
+class TestComponent {}

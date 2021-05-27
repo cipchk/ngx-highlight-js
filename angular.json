@@ -84,10 +84,7 @@
             "main": "lib/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "scripts": [],
-            "styles": [],
-            "assets": []
+            "karmaConfig": "karma.conf.js"
           }
         },
         "lint": {
