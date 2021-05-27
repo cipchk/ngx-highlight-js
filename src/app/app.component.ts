@@ -7,7 +7,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
     <p>Angular for syntax highlighting with highlight.js</p>
     <demo></demo>
   `,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class AppComponent {
-}
+export class AppComponent {}

@@ -31,14 +31,12 @@ export class AppModule {
 
 ### 2、Add highlight.js
 
-Load the highlight.js and theme css in page.
+Load the [highlight.js](https://highlightjs.org/download/) and theme css in page.
 
 ```html
-<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.0/build/highlight.min.js"></script>
-```
-
-```html
-<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.0/build/styles/atom-one-dark.min.css" />
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
 ```
 
 ## Usage
