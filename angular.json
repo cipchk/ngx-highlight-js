@@ -25,7 +25,10 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "inlineStyleLanguage": "less",
             "styles": [],
             "scripts": []
@@ -86,9 +89,23 @@
             "styles": [],
             "assets": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html",
+              "lib/**/*.ts",
+              "lib/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "ngx-highlight-js"
+  "defaultProject": "ngx-highlight-js",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
