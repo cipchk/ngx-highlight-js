@@ -7,9 +7,5 @@
     "stripInternal": true
   },
   "files": ["./src/highlight-js.module.ts"],
-  "include": ["**/*.ts"],
-  "angularCompilerOptions": {
-    "enableIvy": true,
-    "compilationMode": "partial"
-  }
+  "include": ["**/*.ts"]
 }
