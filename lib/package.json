@@ -1,6 +1,6 @@
 {
   "name": "ngx-highlight-js",
-  "version": "12.0.0",
+  "version": "13.0.0",
   "description": "Angular for syntax highlighting with highlight.js",
   "keywords": [
     "highlight",
