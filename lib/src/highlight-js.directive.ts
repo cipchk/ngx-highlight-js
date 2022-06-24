@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnDestroy, AfterViewInit, Inject, Optional } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, AfterViewInit, Inject, Optional, NgZone } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NgModel } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -12,6 +12,7 @@ declare const hljs: any;
     '[style.display]': `mode === 'simple' ? 'none' : null`,
   },
   exportAs: 'highlightJs',
+  standalone: true,
 })
 export class HighlightJsDirective implements AfterViewInit, OnDestroy {
   @Input() options: any;
@@ -29,6 +30,7 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
     @Optional() private ngModel: NgModel,
     @Inject(DOCUMENT) private doc: any,
     @Optional() @Inject(HIGHLIGHTJS_CONFIG) cog: HighlightJsConfig,
+    private ngZone: NgZone,
   ) {
     Object.assign(this, cog);
   }
@@ -38,32 +40,36 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
   }
 
   private init(): void {
-    this.destroy();
-    const el = this.el.nativeElement;
-    const code = this.code || '' + el.innerHTML.trim();
-    this.codeEl = this.doc.createElement(this.mode === 'default' ? 'div' : 'pre') as HTMLElement;
-    const isSimple = this.mode === 'simple';
-    if (isSimple) {
-      if (this.lang) {
-        this.codeEl.className = this.lang;
-      }
-      this.parentEl = el.parentNode as HTMLElement;
-      this.parentEl.insertBefore(this.codeEl, el.nextSibling);
-    } else {
-      this.parentEl = el;
-      this.parentEl.innerHTML = ``;
-      this.parentEl.appendChild(this.codeEl);
-    }
-    this.codeEl.innerHTML = code;
-    hljs.configure({ ...this.options });
+    this.ngZone.runOutsideAngular(() => {
+      this.destroy();
+      const el = this.el.nativeElement;
+      const code = this.code || '' + el.innerHTML.trim();
+      this.codeEl = this.doc.createElement(this.mode === 'default' ? 'div' : 'pre') as HTMLElement;
+      if (this.codeEl == null) return;
 
-    if (isSimple) {
-      hljs.highlightBlock(this.codeEl);
-    } else {
-      this.codeEl.querySelectorAll('pre code').forEach((block) => {
-        hljs.highlightBlock(block);
-      });
-    }
+      const isSimple = this.mode === 'simple';
+      if (isSimple) {
+        if (this.lang) {
+          this.codeEl.className = this.lang;
+        }
+        this.parentEl = el.parentNode as HTMLElement;
+        this.parentEl.insertBefore(this.codeEl, el.nextSibling);
+      } else {
+        this.parentEl = el;
+        this.parentEl.innerHTML = ``;
+        this.parentEl.appendChild(this.codeEl);
+      }
+      this.codeEl.innerHTML = code;
+      hljs.configure({ ...this.options });
+
+      if (isSimple) {
+        hljs.highlightElement(this.codeEl);
+      } else {
+        this.codeEl.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightElement(block);
+        });
+      }
+    });
   }
 
   private destroy(): void {
@@ -97,11 +103,13 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
     if (typeof MutationObserver === 'undefined') {
       return;
     }
-    this.observer = new MutationObserver(this.init.bind(this));
-    this.observer.observe(this.el.nativeElement, {
-      characterData: true,
-      childList: true,
-      subtree: true,
+    this.ngZone.runOutsideAngular(() => {
+      this.observer = new MutationObserver(this.init.bind(this));
+      this.observer.observe(this.el.nativeElement, {
+        characterData: true,
+        childList: true,
+        subtree: true,
+      });
     });
   }
 

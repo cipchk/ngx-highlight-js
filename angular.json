@@ -84,7 +84,10 @@
             "main": "lib/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js"
+            "karmaConfig": "karma.conf.js",
+            "scripts": [
+              "src/assets/highlight.min.js"
+            ]
           }
         },
         "lint": {
@@ -101,8 +104,9 @@
       }
     }
   },
-  "defaultProject": "ngx-highlight-js",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

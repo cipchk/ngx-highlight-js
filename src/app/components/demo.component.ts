@@ -1,4 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HighlightJsDirective } from 'ngx-highlight-js';
 import codeHtml from './files/code';
 
 const r = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min);
@@ -6,6 +9,8 @@ const r = (min: number, max: number) => Math.floor(Math.random() * (max - min + 
 @Component({
   selector: 'demo',
   templateUrl: './demo.component.html',
+  standalone: true,
+  imports: [CommonModule, FormsModule, HighlightJsDirective],
 })
 export class DemoComponent implements OnInit {
   switchStatus = true;

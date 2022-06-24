@@ -17,6 +17,19 @@ Angular for syntax highlighting with highlight.js
 npm install --save ngx-highlight-js
 ```
 
+### 2、Add highlight.js
+
+Load the [highlight.js](https://highlightjs.org/download/) and theme css in page.
+
+```html
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/atom-one-dark.min.css" />
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+```
+
+## Usage
+
+**NgModule**
+
 Import the `HighlightJsModule` in to your root `AppModule`.
 
 ```typescript
@@ -29,17 +42,20 @@ export class AppModule {
 }
 ```
 
-### 2、Add highlight.js
+**Standalone**
 
-Load the [highlight.js](https://highlightjs.org/download/) and theme css in page.
-
-```html
-<link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+```typescript
+import { Component } from '@angular/core';
+import { HighlightJsDirective } from 'ngx-highlight-js';
+@Component({
+  selector: 'test',
+  template: `<textarea highlight-js [lang]="'bash'">npm install --save ngx-highlight-js</textarea>`,
+  standalone: true,
+  imports: [HighlightJsDirective],
+})
+export class SimpleComponent {}
 ```
 
-## Usage
 ### Simple mode
 
 ```html

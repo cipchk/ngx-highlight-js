@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { DemoComponent } from './components/demo.component';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
     <demo></demo>
   `,
   encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [DemoComponent],
 })
 export class AppComponent {}
