@@ -1,11 +1,14 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
 import { environment } from './environments/environment';
-import { AppDemoModule } from './app/app.module';
+
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { HighlightJsConfig, HIGHLIGHTJS_CONFIG } from 'ngx-highlight-js';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppDemoModule)
-.catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [{ provide: HIGHLIGHTJS_CONFIG, useValue: { lang: 'html' } as HighlightJsConfig }],
+}).catch((err) => console.error(err));

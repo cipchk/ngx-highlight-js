@@ -16,16 +16,16 @@ describe('Component: ngx-highlight-js', () => {
     });
     fixture = TestBed.createComponent(TestComponent);
     context = fixture.componentInstance;
-    (window as any).hljs = {
-      configure: jasmine.createSpy(),
-      highlightBlock: jasmine.createSpy(),
-    };
     fixture.detectChanges();
   });
 
   it('should be working', () => {
-    const el = (fixture.nativeElement as HTMLElement).querySelector('textarea') as HTMLTextAreaElement;
+    const rootEl = fixture.nativeElement as HTMLDivElement;
+    const el = rootEl.querySelector('textarea') as HTMLTextAreaElement;
     expect(el.style.display).toBe('none');
+    const hljsEl = rootEl.querySelector('.hljs') as HTMLDivElement;
+    expect(hljsEl != null).toBe(true);
+    expect(hljsEl.classList).toContain(`typescript`);
   });
 });
 

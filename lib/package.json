@@ -1,13 +1,14 @@
 {
   "name": "ngx-highlight-js",
-  "version": "13.0.0",
+  "version": "14.0.0",
   "description": "Angular for syntax highlighting with highlight.js",
   "keywords": [
     "highlight",
     "ngx-highlight-js",
     "highlight.js",
     "highlight-js",
-    "syntax highlighting"
+    "syntax highlighting",
+    "angular standalone library"
   ],
   "author": "cipchk <cipchk@qq.com>",
   "license": "MIT",
