@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/cipchk/ngx-highlight-js/issues"
   },
-  "homepage": "https://cipchk.github.io/ngx-highlight-js/"
+  "homepage": "https://cipchk.github.io/ngx-highlight-js/",
+  "dependencies": {
+    "highlight.js": "^11.0.0"
+  }
 }

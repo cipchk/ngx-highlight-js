@@ -3,8 +3,9 @@ import { DOCUMENT } from '@angular/common';
 import { NgModel } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { HighlightJsConfig, HIGHLIGHTJS_CONFIG } from './highlight-js.config';
+import type { HLJSApi, HLJSOptions } from 'highlight.js';
 
-declare const hljs: any;
+declare const ngDevMode: boolean;
 
 @Directive({
   selector: '[highlight-js]',
@@ -15,15 +16,15 @@ declare const hljs: any;
   standalone: true,
 })
 export class HighlightJsDirective implements AfterViewInit, OnDestroy {
-  @Input() options: any;
+  @Input() options?: Partial<HLJSOptions>;
   @Input() lang = 'html';
-  @Input() code!: string;
+  @Input() code?: string;
   @Input() mode: 'default' | 'simple' = 'simple';
 
   protected codeEl?: HTMLElement;
-  protected parentEl!: HTMLElement;
+  protected parentEl?: HTMLElement;
   private modelValue$?: Subscription;
-  private observer!: MutationObserver;
+  private observer?: MutationObserver;
 
   constructor(
     private el: ElementRef<HTMLElement>,
@@ -44,7 +45,8 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
       this.destroy();
       const el = this.el.nativeElement;
       const code = this.code || '' + el.innerHTML.trim();
-      this.codeEl = this.doc.createElement(this.mode === 'default' ? 'div' : 'pre') as HTMLElement;
+      const doc = this.doc as Document;
+      this.codeEl = doc.createElement(this.mode === 'default' ? 'div' : 'pre') as HTMLElement;
       if (this.codeEl == null) return;
 
       const isSimple = this.mode === 'simple';
@@ -60,12 +62,20 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
         this.parentEl.appendChild(this.codeEl);
       }
       this.codeEl.innerHTML = code;
+      const hljs: HLJSApi = (doc.defaultView as any).hljs;
+      if (hljs == null) {
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+          console.warn(`Can't find hljs under window`);
+        }
+        return;
+      }
+
       hljs.configure({ ...this.options });
 
       if (isSimple) {
         hljs.highlightElement(this.codeEl);
       } else {
-        this.codeEl.querySelectorAll('pre code').forEach((block) => {
+        this.codeEl.querySelectorAll<HTMLElement>('pre code').forEach((block) => {
           hljs.highlightElement(block);
         });
       }
@@ -114,9 +124,6 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
   }
 
   private destroyMutation(): void {
-    if (!this.observer) {
-      return;
-    }
-    this.observer.disconnect();
+    this.observer?.disconnect();
   }
 }

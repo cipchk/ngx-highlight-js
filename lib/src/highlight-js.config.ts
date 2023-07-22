@@ -1,4 +1,5 @@
 import { InjectionToken } from '@angular/core';
+import type { HLJSOptions } from 'highlight.js';
 
 export interface HighlightJsConfig {
   /**
@@ -12,9 +13,9 @@ export interface HighlightJsConfig {
    */
   lang?: string;
   /**
-   * Equar [configure(options)](http://highlightjs.readthedocs.io/en/latest/api.html#configure-options)
+   * Equar [configure(options)](https://highlightjs.readthedocs.io/en/latest/api.html#configure)
    */
-  options?: any;
+  options?: Partial<HLJSOptions>;
 }
 
 export const HIGHLIGHTJS_CONFIG = new InjectionToken<HighlightJsConfig>('HighlightJs-Config');

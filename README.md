@@ -103,7 +103,7 @@ Will render each `<pre><code>`:
 | Property | Description | Type | Default | Global Config |
 |----------|-------------|------|---------|---------------|
 | `[mode]` | - `default` Will render each `<pre><code>`<br>- `simple` Render all content according to `lang` language | `default, simple` | `simple` | ✅ |
-| `[options]` | Equar [configure(options)](http://highlightjs.readthedocs.io/en/latest/api.html#configure-options) | `any` | - | ✅ |
+| `[options]` | Equar [configure(options)](https://highlightjs.readthedocs.io/en/latest/api.html#configure) | `any` | - | ✅ |
 | `[lang]` | Uses language detection by default but you can specify the language | `string` | `html` | ✅ |
 | `[code]` | Specify content | `string` | `html` | - |
 
