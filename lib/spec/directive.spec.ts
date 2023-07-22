@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HighlightJsModule } from '../src/highlight-js.module';
-
-const html = ``;
+import { DOCUMENT } from '@angular/common';
 
 describe('Component: ngx-highlight-js', () => {
   let fixture: ComponentFixture<any>;
@@ -14,18 +13,30 @@ describe('Component: ngx-highlight-js', () => {
       declarations: [TestComponent],
       imports: [HighlightJsModule],
     });
+  });
+
+  function createComp() {
     fixture = TestBed.createComponent(TestComponent);
     context = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }
 
   it('should be working', () => {
+    createComp();
     const rootEl = fixture.nativeElement as HTMLDivElement;
     const el = rootEl.querySelector('textarea') as HTMLTextAreaElement;
     expect(el.style.display).toBe('none');
     const hljsEl = rootEl.querySelector('.hljs') as HTMLDivElement;
     expect(hljsEl != null).toBe(true);
     expect(hljsEl.classList).toContain(`typescript`);
+  });
+
+  it(`can't load hljs in window`, () => {
+    spyOn(console, 'warn');
+    const doc = TestBed.inject(DOCUMENT);
+    spyOnProperty(doc as any, 'defaultView').and.returnValue({});
+    createComp();
+    expect(console.warn).toHaveBeenCalled();
   });
 });
 
