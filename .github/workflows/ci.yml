@@ -60,7 +60,7 @@ jobs:
 
       - name: build
         run: |
-          ng build --base-href /ngx-highlight-js/
+          node ./node_modules/@angular/cli/bin/ng build --base-href /ngx-highlight-js/
           cp ./dist/browser/index.html ./dist/browser/404.html
           ls ./dist/browser
 
