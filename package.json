@@ -21,12 +21,11 @@
   },
   "homepage": "https://cipchk.github.io/ngx-highlight-js/",
   "scripts": {
-    "analyze": "ng b --stats-json --source-map",
     "lint": "ng lint",
     "test": "ng t --no-progress --code-coverage --no-watch --browsers=ChromeHeadless",
     "build": "node scripts/build.js",
-    "release:next": "npm run build && cd publish && npm publish --access public --tag next",
-    "release": "npm run build && cd publish && npm publish --access public"
+    "release": "npm run build && cd publish && npm publish --access public",
+    "release:next": "npm run build && cd publish && npm publish --access public --tag next"
   },
   "dependencies": {
     "@angular/animations": "^17.0.0-next.0",
