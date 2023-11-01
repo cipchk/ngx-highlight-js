@@ -1,6 +1,6 @@
 {
   "name": "ngx-highlight-js",
-  "version": "16.1.0",
+  "version": "17.0.0-rc.0",
   "description": "Angular for syntax highlighting with highlight.js",
   "keywords": [
     "highlight",
@@ -21,6 +21,6 @@
   },
   "homepage": "https://cipchk.github.io/ngx-highlight-js/",
   "dependencies": {
-    "highlight.js": "^11.0.0"
+    "highlight.js": "^11.9.0"
   }
 }
