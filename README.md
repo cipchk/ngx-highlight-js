@@ -3,6 +3,7 @@ Angular for syntax highlighting with highlight.js
 
 [![NPM version](https://img.shields.io/npm/v/ngx-highlight-js.svg)](https://www.npmjs.com/package/ngx-highlight-js)
 [![Ci](https://github.com/cipchk/ngx-highlight-js/workflows/Ci/badge.svg)](https://github.com/cipchk/ngx-highlight-js/actions)
+[![codecov](https://codecov.io/github/cipchk/ngx-highlight-js/graph/badge.svg?token=FI8lMVH3bN)](https://codecov.io/github/cipchk/ngx-highlight-js)
 
 ## Demo
 
