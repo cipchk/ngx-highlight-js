@@ -4,12 +4,12 @@
     "alwaysStrict": true,
     "inlineSources": true,
     "strictFunctionTypes": true,
-    "stripInternal": true
+    "stripInternal": true,
+    "declarationMap": false
   },
   "files": ["./src/highlight-js.module.ts"],
   "include": ["**/*.ts"],
   "angularCompilerOptions": {
-    "enableIvy": true,
     "compilationMode": "partial"
   }
 }
