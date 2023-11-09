@@ -3,7 +3,7 @@
   "dest": "../publish",
   "deleteDestPath": true,
   "lib": {
-    "entryFile": "public_api.ts"
+    "entryFile": "public-api.ts"
   },
   "allowedNonPeerDependencies": ["tslib", "angular", "highlight.js"]
 }

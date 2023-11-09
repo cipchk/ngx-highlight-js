@@ -103,10 +103,8 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy();
-    this.destroyMutation();
-    if (this.modelValue$) {
-      this.modelValue$.unsubscribe();
-    }
+    this.observer?.disconnect();
+    this.modelValue$?.unsubscribe();
   }
 
   private initMutation(): void {
@@ -121,9 +119,5 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
         subtree: true,
       });
     });
-  }
-
-  private destroyMutation(): void {
-    this.observer?.disconnect();
   }
 }
