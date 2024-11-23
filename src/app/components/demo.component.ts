@@ -9,7 +9,6 @@ const r = (min: number, max: number) => Math.floor(Math.random() * (max - min + 
 @Component({
   selector: 'demo',
   templateUrl: './demo.component.html',
-  standalone: true,
   imports: [CommonModule, FormsModule, HighlightJsDirective],
 })
 export class DemoComponent implements OnInit {
