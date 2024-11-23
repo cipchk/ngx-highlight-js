@@ -15,24 +15,20 @@ declare const ngDevMode: boolean;
   exportAs: 'highlightJs',
 })
 export class HighlightJsDirective implements AfterViewInit, OnDestroy {
-  readonly options = input<Partial<HLJSOptions>>();
-  readonly l = input<string>('html', { alias: 'lang'});
+  private cog = inject(HIGHLIGHTJS_CONFIG, { optional: true });
+  readonly options = input<Partial<HLJSOptions>>(this.cog?.options ?? {});
+  readonly lang = input<string>(this.cog?.lang ?? 'html');
   readonly code = model<string>();
-  readonly mode = input<'default' | 'simple'>('simple');
+  readonly mode = input<'default' | 'simple'>(this.cog?.mode ?? 'simple');
 
   protected codeEl?: HTMLElement;
   protected parentEl?: HTMLElement;
   private modelValue$?: Subscription;
   private observer?: MutationObserver;
   private el = inject<ElementRef<HTMLElement>>(ElementRef);
-  private ngModel = inject<NgModel>(NgModel, {optional: true});
+  private ngModel = inject<NgModel>(NgModel, { optional: true });
   private doc = inject(DOCUMENT);
-  private cog = inject(HIGHLIGHTJS_CONFIG, {optional: true});
   private ngZone = inject(NgZone);
-
-  constructor() {
-    Object.assign(this, this.cog);
-  }
 
   private escapeHTML(str: string): string {
     return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
@@ -49,7 +45,7 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
 
       const isSimple = this.mode() === 'simple';
       if (isSimple) {
-        const lang = this.l();
+        const lang = this.lang();
         if (lang) {
           this.codeEl.className = lang;
         }
