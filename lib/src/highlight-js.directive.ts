@@ -1,8 +1,8 @@
-import { Directive, ElementRef, Input, OnDestroy, AfterViewInit, Inject, Optional, NgZone } from '@angular/core';
+import { Directive, ElementRef, OnDestroy, AfterViewInit, NgZone, input, model, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NgModel } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { HighlightJsConfig, HIGHLIGHTJS_CONFIG } from './highlight-js.config';
+import { HIGHLIGHTJS_CONFIG } from './highlight-js.config';
 import type { HLJSApi, HLJSOptions } from 'highlight.js';
 
 declare const ngDevMode: boolean;
@@ -10,30 +10,28 @@ declare const ngDevMode: boolean;
 @Directive({
   selector: '[highlight-js]',
   host: {
-    '[style.display]': `mode === 'simple' ? 'none' : null`,
+    '[style.display]': `mode() === 'simple' ? 'none' : null`,
   },
   exportAs: 'highlightJs',
-  standalone: true,
 })
 export class HighlightJsDirective implements AfterViewInit, OnDestroy {
-  @Input() options?: Partial<HLJSOptions>;
-  @Input() lang = 'html';
-  @Input() code?: string;
-  @Input() mode: 'default' | 'simple' = 'simple';
+  readonly options = input<Partial<HLJSOptions>>();
+  readonly l = input<string>('html', { alias: 'lang'});
+  readonly code = model<string>();
+  readonly mode = input<'default' | 'simple'>('simple');
 
   protected codeEl?: HTMLElement;
   protected parentEl?: HTMLElement;
   private modelValue$?: Subscription;
   private observer?: MutationObserver;
+  private el = inject<ElementRef<HTMLElement>>(ElementRef);
+  private ngModel = inject<NgModel>(NgModel, {optional: true});
+  private doc = inject(DOCUMENT);
+  private cog = inject(HIGHLIGHTJS_CONFIG, {optional: true});
+  private ngZone = inject(NgZone);
 
-  constructor(
-    private el: ElementRef<HTMLElement>,
-    @Optional() private ngModel: NgModel,
-    @Inject(DOCUMENT) private doc: any,
-    @Optional() @Inject(HIGHLIGHTJS_CONFIG) cog: HighlightJsConfig,
-    private ngZone: NgZone,
-  ) {
-    Object.assign(this, cog);
+  constructor() {
+    Object.assign(this, this.cog);
   }
 
   private escapeHTML(str: string): string {
@@ -44,15 +42,16 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
     this.ngZone.runOutsideAngular(() => {
       this.destroy();
       const el = this.el.nativeElement;
-      const code = this.code || '' + el.innerHTML.trim();
+      const code = this.code() ?? '' + el.innerHTML.trim();
       const doc = this.doc as Document;
-      this.codeEl = doc.createElement(this.mode === 'default' ? 'div' : 'pre') as HTMLElement;
+      this.codeEl = doc.createElement(this.mode() === 'default' ? 'div' : 'pre') as HTMLElement;
       if (this.codeEl == null) return;
 
-      const isSimple = this.mode === 'simple';
+      const isSimple = this.mode() === 'simple';
       if (isSimple) {
-        if (this.lang) {
-          this.codeEl.className = this.lang;
+        const lang = this.l();
+        if (lang) {
+          this.codeEl.className = lang;
         }
         this.parentEl = el.parentNode as HTMLElement;
         this.parentEl.insertBefore(this.codeEl, el.nextSibling);
@@ -70,7 +69,7 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
         return;
       }
 
-      hljs.configure({ ...this.options });
+      hljs.configure({ ...this.options() });
 
       if (isSimple) {
         hljs.highlightElement(this.codeEl);
@@ -93,7 +92,7 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
     this.init();
     if (this.ngModel) {
       this.modelValue$ = this.ngModel.valueChanges?.subscribe((res) => {
-        this.code = this.escapeHTML(res);
+        this.code.set(this.escapeHTML(res));
         this.init();
       });
     } else {

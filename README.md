@@ -1,4 +1,5 @@
 # ngx-highlight-js
+
 Angular for syntax highlighting with highlight.js
 
 [![NPM version](https://img.shields.io/npm/v/ngx-highlight-js.svg)](https://www.npmjs.com/package/ngx-highlight-js)
@@ -29,29 +30,13 @@ Load the [highlight.js](https://highlightjs.org/download/) and theme css in page
 
 ## Usage
 
-**NgModule**
-
-Import the `HighlightJsModule` in to your root `AppModule`.
-
-```typescript
-import { HighlightJsModule } from 'ngx-highlight-js';
-@NgModule({
-  imports: [ HighlightJsModule ],
-  bootstrap: [AppComponent]
-})
-export class AppModule {
-}
-```
-
-**Standalone**
-
 ```typescript
 import { Component } from '@angular/core';
 import { HighlightJsDirective } from 'ngx-highlight-js';
+
 @Component({
   selector: 'test',
   template: `<textarea highlight-js [lang]="'bash'">npm install --save ngx-highlight-js</textarea>`,
-  standalone: true,
   imports: [HighlightJsDirective],
 })
 export class SimpleComponent {}
@@ -101,26 +86,18 @@ Will render each `<pre><code>`:
 
 ### Parameter
 
-| Property | Description | Type | Default | Global Config |
-|----------|-------------|------|---------|---------------|
-| `[mode]` | - `default` Will render each `<pre><code>`<br>- `simple` Render all content according to `lang` language | `default, simple` | `simple` | ✅ |
-| `[options]` | Equar [configure(options)](https://highlightjs.readthedocs.io/en/latest/api.html#configure) | `any` | - | ✅ |
-| `[lang]` | Uses language detection by default but you can specify the language | `string` | `html` | ✅ |
-| `[code]` | Specify content | `string` | `html` | - |
+| Property    | Description                                                                                              | Type              | Default  | Global Config |
+| ----------- | -------------------------------------------------------------------------------------------------------- | ----------------- | -------- | ------------- |
+| `[mode]`    | - `default` Will render each `<pre><code>`<br>- `simple` Render all content according to `lang` language | `default, simple` | `simple` | ✅            |
+| `[options]` | Equar [configure(options)](https://highlightjs.readthedocs.io/en/latest/api.html#configure)              | `any`             | -        | ✅            |
+| `[lang]`    | Uses language detection by default but you can specify the language                                      | `string`          | `html`   | ✅            |
+| `[code]`    | Specify content                                                                                          | `string`          | `html`   | -             |
 
 **Global Config**
 
 ```ts
 @NgModule({
-  providers: [
-    { 
-      provide: HIGHLIGHTJS_CONFIG, 
-      useValue: { 
-        lang: 'html'
-      } as HighlightJsConfig 
-    }
-  ],
-  imports: [ HighlightJsModule ],
+  providers: [provideSFConfig({ lang: 'html' })],
 })
 export class AppDemoModule {}
 ```

@@ -1,4 +1,4 @@
-import { InjectionToken } from '@angular/core';
+import { EnvironmentProviders, InjectionToken, makeEnvironmentProviders, Provider } from '@angular/core';
 import type { HLJSOptions } from 'highlight.js';
 
 export interface HighlightJsConfig {
@@ -19,3 +19,16 @@ export interface HighlightJsConfig {
 }
 
 export const HIGHLIGHTJS_CONFIG = new InjectionToken<HighlightJsConfig>('HighlightJs-Config');
+
+export function provideSFConfig(options: Partial<HighlightJsConfig>): EnvironmentProviders {
+  const provides: Array<Provider | EnvironmentProviders> = [
+    {
+      provide: HIGHLIGHTJS_CONFIG,
+      useValue: {
+        lang: 'html',
+        ...options,
+      } as HighlightJsConfig,
+    },
+  ];
+  return makeEnvironmentProviders(provides);
+}
