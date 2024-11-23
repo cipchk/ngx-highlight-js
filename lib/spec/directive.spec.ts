@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HighlightJsModule } from '../src/highlight-js.module';
 import { DOCUMENT } from '@angular/common';
+import { HighlightJsDirective } from 'lib/public-api';
 
 describe('Component: ngx-highlight-js', () => {
   let fixture: ComponentFixture<any>;
@@ -10,8 +10,7 @@ describe('Component: ngx-highlight-js', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TestComponent],
-      imports: [HighlightJsModule],
+      imports: [TestComponent],
     });
   });
 
@@ -47,5 +46,6 @@ describe('Component: ngx-highlight-js', () => {
 import { Component } from '@angular/core';
 </textarea>
   `,
+  imports: [HighlightJsDirective],
 })
 class TestComponent {}
