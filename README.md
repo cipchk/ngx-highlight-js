@@ -37,7 +37,7 @@ import { HighlightJsDirective } from 'ngx-highlight-js';
 @Component({
   selector: 'test',
   template: `<textarea highlight-js [lang]="'bash'">npm install --save ngx-highlight-js</textarea>`,
-  imports: [HighlightJsDirective],
+  imports: [HighlightJsDirective]
 })
 export class SimpleComponent {}
 ```
@@ -97,7 +97,7 @@ Will render each `<pre><code>`:
 
 ```ts
 @NgModule({
-  providers: [provideSFConfig({ lang: 'html' })],
+  providers: [provideHighlightJsConfig({ lang: 'html' })]
 })
 export class AppDemoModule {}
 ```
