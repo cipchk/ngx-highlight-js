@@ -1,7 +1,7 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
-import { provideSFConfig } from 'ngx-highlight-js';
+import { App } from './app/app';
+import { provideHighlightJsConfig } from 'ngx-highlight-js';
 
-bootstrapApplication(AppComponent, {
-  providers: [provideSFConfig({ lang: 'html' })],
+bootstrapApplication(App, {
+  providers: [provideHighlightJsConfig({ lang: 'html' })],
 }).catch((err) => console.error(err));

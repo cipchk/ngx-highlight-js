@@ -20,8 +20,8 @@ export interface HighlightJsConfig {
 
 export const HIGHLIGHTJS_CONFIG = new InjectionToken<HighlightJsConfig>('HighlightJs-Config');
 
-export function provideSFConfig(options: Partial<HighlightJsConfig>): EnvironmentProviders {
-  const provides: Array<Provider | EnvironmentProviders> = [
+export function provideHighlightJsConfig(options: Partial<HighlightJsConfig>): EnvironmentProviders {
+  const provides: (Provider | EnvironmentProviders)[] = [
     {
       provide: HIGHLIGHTJS_CONFIG,
       useValue: {

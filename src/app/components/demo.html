@@ -14,26 +14,24 @@ import { HighlightJsModule } from 'ngx-highlight-js';
 })
 export class AppModule {
 }
-        </textarea
-    >
+        </textarea>
   </div>
   <div class="col-sm-12">
     <h6 class="mb-2">3、Add highlight.js</h6>
     <p>Load the highlight.js and theme css in page.</p>
     <textarea highlight-js>
             <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
-        </textarea
-    >
+        </textarea>
     <textarea highlight-js>
             <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/atom-one-dark.min.css">
-        </textarea
-    >
+        </textarea>
   </div>
   <div class="col-sm-12">
     <h5 class="mt-5 mb-3">Only `&lt;textarea>` Tag</h5>
     <div class="row">
       <div class="col-sm-6">
-        <textarea highlight-js [lang]="'html'" *ngIf="switchStatus">
+        @if (switchStatus) {
+        <textarea highlight-js [lang]="'html'">
 &lt;textarea highlight-js [options]="{}" [lang]="'typescript'">
 /* tslint:disable */
 import { Component } from '@angular/core';
@@ -47,8 +45,8 @@ export class DemoComponent {
     switchStatus: boolean = true;
 }
 &lt;/textarea>
-                </textarea
-        >
+                </textarea>
+        }
         <button class="btn btn-primary btn-sm mb-3" (click)="switchStatus = !switchStatus">
           {{ switchStatus ? 'Hide' : 'Show' }}
         </button>
@@ -56,7 +54,8 @@ export class DemoComponent {
       <div class="col-sm-6">
         <p>
           <strong>[options]</strong> equar
-          <a href="https://highlightjs.readthedocs.io/en/latest/api.html#configure" target="_blank">configure(options)</a>. (optional)
+          <a href="https://highlightjs.readthedocs.io/en/latest/api.html#configure"
+            target="_blank">configure(options)</a>. (optional)
         </p>
         <p><strong>[lang]</strong> uses language detection by default but you can specify the language. (optional)</p>
       </div>
