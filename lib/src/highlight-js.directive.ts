@@ -70,7 +70,7 @@ export class HighlightJsDirective implements AfterViewInit, OnDestroy {
       if (isSimple) {
         hljs.highlightElement(this.codeEl);
       } else {
-        this.codeEl.querySelectorAll<HTMLElement>('pre code').forEach((block) => {
+        this.codeEl.querySelectorAll<HTMLElement>(this.options()?.cssSelector ?? 'pre code').forEach((block) => {
           hljs.highlightElement(block);
         });
       }
