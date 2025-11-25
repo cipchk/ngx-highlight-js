@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DOCUMENT } from '@angular/common';
-import { HighlightJsDirective } from 'lib/public-api';
+import { HighlightJsDirective } from './highlight-js';
 
 describe('Component: ngx-highlight-js', () => {
   let fixture: ComponentFixture<any>;
@@ -29,9 +29,9 @@ describe('Component: ngx-highlight-js', () => {
   });
 
   it(`can't load hljs in window`, () => {
-    spyOn(console, 'warn');
+    vi.spyOn(console, 'warn');
     const doc = TestBed.inject(DOCUMENT);
-    spyOnProperty(doc as any, 'defaultView').and.returnValue({});
+    vi.mockObject(() => doc.defaultView).mockReturnValue({} as any);
     createComp();
     expect(console.warn).toHaveBeenCalled();
   });
@@ -40,7 +40,7 @@ describe('Component: ngx-highlight-js', () => {
 @Component({
   selector: 'ngx-highlight-js-test',
   template: `
-    <textarea [highlight-js] [options]="{}" [lang]="'typescript'">
+    <textarea highlight-js [options]="{}" [lang]="'typescript'">
 import { Component } from '@angular/core';
 </textarea>
   `,

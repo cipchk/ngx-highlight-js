@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { Demo } from './components/demo';
 
 @Component({
@@ -8,7 +8,6 @@ import { Demo } from './components/demo';
     <p>Angular for syntax highlighting with highlight.js</p>
     <demo></demo>
   `,
-  encapsulation: ViewEncapsulation.None,
   imports: [Demo],
 })
 export class App { }

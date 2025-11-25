@@ -21,6 +21,6 @@
   },
   "homepage": "https://cipchk.github.io/ngx-highlight-js/",
   "dependencies": {
-    "highlight.js": "^11.9.0"
+    "highlight.js": "^11.11.1"
   }
 }
