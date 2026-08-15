@@ -1,18 +1,20 @@
-import { Directive, ElementRef, OnDestroy, input, model, inject, afterNextRender } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { NgModel } from '@angular/forms';
-import { HIGHLIGHTJS_CONFIG } from './config';
-import type { HLJSApi, HLJSOptions } from 'highlight.js';
+import { Directive, ElementRef, OnDestroy, input, model, inject, afterNextRender } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NgModel } from '@angular/forms';
+
+import type { HLJSApi, HLJSOptions } from 'highlight.js';
+
+import { HIGHLIGHTJS_CONFIG } from './config';
 
 declare const ngDevMode: boolean;
 
 @Directive({
   selector: '[highlight-js]',
   host: {
-    '[style.display]': `mode() === 'simple' ? 'none' : null`,
+    '[style.display]': `mode() === 'simple' ? 'none' : null`
   },
-  exportAs: 'highlightJs',
+  exportAs: 'highlightJs'
 })
 export class HighlightJsDirective implements OnDestroy {
   private readonly cog = inject(HIGHLIGHTJS_CONFIG, { optional: true });
@@ -29,7 +31,7 @@ export class HighlightJsDirective implements OnDestroy {
   private readonly doc = inject(DOCUMENT);
 
   constructor() {
-    this.ngModel?.valueChanges?.pipe(takeUntilDestroyed()).subscribe((res) => {
+    this.ngModel?.valueChanges?.pipe(takeUntilDestroyed()).subscribe(res => {
       this.code.set(this.escapeHTML(res));
       this.init();
     });
@@ -44,13 +46,18 @@ export class HighlightJsDirective implements OnDestroy {
   }
 
   private escapeHTML(str: string): string {
-    return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+    return (str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&apos;');
   }
 
   private init(): void {
     this.destroy();
     const el = this.el.nativeElement;
-    const code = this.code() ?? '' + el.innerHTML.trim();
+    const code = this.code() ?? `${el.innerHTML.trim()}`;
     const doc = this.doc as Document;
     this.codeEl = doc.createElement(this.mode() === 'default' ? 'div' : 'pre') as HTMLElement;
     if (this.codeEl == null) return;
@@ -82,7 +89,7 @@ export class HighlightJsDirective implements OnDestroy {
     if (isSimple) {
       hljs.highlightElement(this.codeEl);
     } else {
-      this.codeEl.querySelectorAll<HTMLElement>(this.options()?.cssSelector ?? 'pre code').forEach((block) => {
+      this.codeEl.querySelectorAll<HTMLElement>(this.options()?.cssSelector ?? 'pre code').forEach(block => {
         hljs.highlightElement(block);
       });
     }
@@ -108,7 +115,7 @@ export class HighlightJsDirective implements OnDestroy {
     this.observer.observe(this.el.nativeElement, {
       characterData: true,
       childList: true,
-      subtree: true,
+      subtree: true
     });
   }
 }

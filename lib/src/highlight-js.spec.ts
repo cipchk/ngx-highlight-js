@@ -1,7 +1,7 @@
+import { DOCUMENT } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DOCUMENT } from '@angular/common';
 import { HighlightJsDirective } from './highlight-js';
 
 describe('Component: ngx-highlight-js', () => {
@@ -9,11 +9,11 @@ describe('Component: ngx-highlight-js', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TestComponent],
+      imports: [TestComponent]
     });
   });
 
-  function createComp() {
+  function createComp(): void {
     fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
   }
@@ -40,10 +40,10 @@ describe('Component: ngx-highlight-js', () => {
 @Component({
   selector: 'ngx-highlight-js-test',
   template: `
-    <textarea highlight-js [options]="{}" [lang]="'typescript'">
+    <textarea highlight-js [options]="{}" lang="typescript">
 import { Component } from '@angular/core';
 </textarea>
   `,
-  imports: [HighlightJsDirective],
+  imports: [HighlightJsDirective]
 })
-class TestComponent { }
+class TestComponent {}
