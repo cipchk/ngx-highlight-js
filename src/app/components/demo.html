@@ -2,7 +2,7 @@
   <div class="col-sm-12">
     <h5 class="mt-3 mb-3">Installation instructions</h5>
     <h6 class="mb-2">1、Install</h6>
-    <textarea highlight-js [lang]="'bash'">npm install --save ngx-highlight-js</textarea>
+    <textarea highlight-js lang="bash">npm install --save ngx-highlight-js</textarea>
   </div>
   <div class="col-sm-12">
     <h6 class="mb-2">2、Import the `HighlightJsModule` in to your root `AppModule`.</h6>
@@ -31,7 +31,7 @@ export class AppModule {
     <div class="row">
       <div class="col-sm-6">
         @if (switchStatus) {
-        <textarea highlight-js [lang]="'html'">
+          <textarea highlight-js lang="html">
 &lt;textarea highlight-js [options]="{}" [lang]="'typescript'">
 /* tslint:disable */
 import { Component } from '@angular/core';
@@ -54,8 +54,9 @@ export class DemoComponent {
       <div class="col-sm-6">
         <p>
           <strong>[options]</strong> equar
-          <a href="https://highlightjs.readthedocs.io/en/latest/api.html#configure"
-            target="_blank">configure(options)</a>. (optional)
+          <a href="https://highlightjs.readthedocs.io/en/latest/api.html#configure" target="_blank"
+            >configure(options)</a
+          >. (optional)
         </p>
         <p><strong>[lang]</strong> uses language detection by default but you can specify the language. (optional)</p>
       </div>
@@ -63,14 +64,14 @@ export class DemoComponent {
     <h5 class="mt-5 mb-3">Support `ngModel`</h5>
     <div class="row">
       <div class="col-sm-6">
-        <textarea highlight-js [lang]="'html'" [ngModel]="html"></textarea>
+        <textarea highlight-js lang="html" [ngModel]="html"></textarea>
         <button class="btn btn-primary btn-sm mb-3" (click)="updateHTML()">Update</button>
       </div>
     </div>
     <h5 class="mt-5 mb-3">Observe Content</h5>
     <div class="row">
       <div class="col-sm-6">
-        <textarea highlight-js [lang]="'html'">
+        <textarea highlight-js lang="html">
           {{ random }}
         </textarea>
         <button class="btn btn-primary btn-sm mb-3" (click)="randomHtml()">Random Html</button>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { Demo } from './components/demo';
 
 @Component({
@@ -6,8 +7,8 @@ import { Demo } from './components/demo';
   template: `
     <h1>ngx-highlight-js</h1>
     <p>Angular for syntax highlighting with highlight.js</p>
-    <demo></demo>
+    <demo />
   `,
-  imports: [Demo],
+  imports: [Demo]
 })
-export class App { }
+export class App {}
